@@ -6,7 +6,9 @@ Role Variables
 --------------
 
 ```
-# Any Vars?
+elasticsearch_enabled: false
+elasticsearch_repo_version: "5.x"
+elasticsearch_version: "5.5.3"
 ```
 
 ----------------
