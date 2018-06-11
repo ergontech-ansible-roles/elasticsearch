@@ -1,0 +1,36 @@
+---
+
+- name: Install Elasticsearch dependencies
+  become: yes
+  apt:
+    pkg: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - openjdk-8-jdk
+    - apt-transport-https
+
+- name: Add Elasticsearch apt key
+  become: yes
+  apt_key:
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    state: present
+
+- name: Add Elasticsearch repository
+  become: yes
+  apt_repository:
+    repo: 'deb https://artifacts.elastic.co/packages/{{ elasticsearch_repo_version }}/apt stable main'
+    state: present
+    update_cache: yes
+
+- name: Install Elasticsearch
+  become: yes
+  apt:
+    pkg: "elasticsearch={{ elasticsearch_version }}"
+
+# Restart will start the service if is not started
+- name: Ensure Elasticsearch is enabled
+  become: yes
+  service:
+    name: elasticsearch
+    enabled: yes
+  notify: restart elasticsearch

@@ -1,0 +1,11 @@
+---
+
+- name: Configure Elasticsearch
+  become: yes
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/blah.yml
+    owner: root
+    group: elasticsearch
+    mode: 0660
+  notify: restart elasticsearch

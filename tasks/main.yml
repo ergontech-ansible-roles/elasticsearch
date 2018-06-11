@@ -1,0 +1,11 @@
+---
+
+- include_tasks: install.yml
+  when: elasticsearch_enabled
+  tags:
+    - elasticsearch
+
+- include_tasks: configure.yml
+  when: elasticsearch_enabled
+  tags:
+    - elasticsearch
